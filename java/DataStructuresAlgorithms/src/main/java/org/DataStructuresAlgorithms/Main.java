@@ -1,17 +1,18 @@
 package org.DataStructuresAlgorithms;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.DataStructuresAlgorithms.DataStructures.LocalArray;
+
 public class Main {
     static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
-
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+        var array = new LocalArray(4);
+        array.insert(10);
+        array.insert(20);
+        array.insert(30);
+        array.insert(40);
+        System.out.println("Index of:" + array.indexOf(50));
+        System.out.println("Index of:" + array.indexOf(40));
+        array.removeAt(2);
+        System.out.println(array.print());
     }
 }
+

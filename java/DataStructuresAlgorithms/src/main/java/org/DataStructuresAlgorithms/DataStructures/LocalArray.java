@@ -38,7 +38,7 @@ public class LocalArray {
             throw new IndexOutOfBoundsException();
         }
         var holder = new int[_size - 1];
-        for (int i = 0, ii = 0; i < _size; i++, ii++) {
+        for (int i = 0, ii = 0; i < _current; i++, ii++) {
             if (i == index) {
                 ii--;
                 continue;
@@ -47,6 +47,7 @@ public class LocalArray {
         }
         _item = holder;
         _userExpectedSize = _userExpectedSize - 1;
+        _current = _current - 1;
     }
 
     public int indexOf(int value) {
@@ -58,16 +59,19 @@ public class LocalArray {
         return -1;
     }
 
-    public String printLn() {
+    public String print() {
         var builder = new StringBuilder();
         builder.append("[");
-        if (_userExpectedSize < 0) {
+        if (_current < 0) {
             builder.append("]");
             return builder.toString();
         }
 
-        for (int i = 0; i <= _userExpectedSize; i++) {
+        for (int i = 0; i < _current; i++) {
             builder.append(_item[i]);
+            if (i != _current - 1) {
+                builder.append(", ");
+            }
         }
         builder.append("]");
         return builder.toString();

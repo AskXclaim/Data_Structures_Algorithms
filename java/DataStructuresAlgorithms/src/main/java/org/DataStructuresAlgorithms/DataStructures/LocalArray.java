@@ -33,7 +33,6 @@ public class LocalArray {
     }
 
     public void removeAt(int index) {
-        //Todo check index> _userExpectedSize edge cases
         if (index < 0 || index > _userExpectedSize) {
             throw new IndexOutOfBoundsException();
         }
@@ -62,10 +61,6 @@ public class LocalArray {
     public String print() {
         var builder = new StringBuilder();
         builder.append("[");
-        if (_current < 0) {
-            builder.append("]");
-            return builder.toString();
-        }
 
         for (int i = 0; i < _current; i++) {
             builder.append(_item[i]);

@@ -20,8 +20,17 @@ class LocalArray {
         return this._items.indexOf(value);
     }
 
-    public print():void{
-        console.log(this._items);
+    public print(): string {
+        let result = "[";
+        if (this._items?.length >0) {
+            for (const item in this._items) {
+                result += `${this._items[item]},`;
+            }
+            result = result.substring(0, result.length - 1);
+        }
+        result += "]";
+
+        return result;
     }
 }
 

@@ -1,12 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var LocalArray_js_1 = require("./dataStructures/LocalArray.js");
-var localArray = new LocalArray_js_1.default();
+const LocalArray_js_1 = __importDefault(require("./dataStructures/LocalArray.js"));
+const localArray = new LocalArray_js_1.default();
 localArray.insert(10);
 localArray.insert(15.5);
 localArray.insert(20);
-localArray.print();
+console.log(localArray.print());
 console.log(localArray.indexOf(15.5));
 console.log(localArray.indexOf(30));
 localArray.removeAt(1);
-localArray.print();
+console.log(localArray.print());

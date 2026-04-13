@@ -4,13 +4,19 @@
   "description": "Data structures & algorithms",
   "license": "ISC",
   "author": "",
-  "type": "module",
-  "main": "./dist/index.js",
+  "type": "commonjs",
+  "main": "./dist/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx tsx watch ./src/index.ts",
+    "test": "npx tsc && jest --watchAll",
+    "test-coverage": "npx tsc && jest --verbose --coverage"
   },
   "devDependencies": {
+    "@jest/globals": "^30.3.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.4.0",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }

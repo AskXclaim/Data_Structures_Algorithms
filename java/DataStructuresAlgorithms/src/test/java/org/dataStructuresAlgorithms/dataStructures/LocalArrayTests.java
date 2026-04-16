@@ -1,4 +1,4 @@
-package org.DataStructuresAlgorithms.DataStructures;
+package org.dataStructuresAlgorithms.dataStructures;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,6 @@
-package org.DataStructuresAlgorithms;
+package org.dataStructuresAlgorithms;
 
-import org.DataStructuresAlgorithms.DataStructures.LocalArray;
+import org.dataStructuresAlgorithms.dataStructures.LocalArray;
 
 public class Main {
     static void main() {

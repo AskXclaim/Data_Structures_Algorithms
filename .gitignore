@@ -202,6 +202,13 @@ nbdist/
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
 
 # AWS User-specific
 .idea/**/aws.xml
@@ -210,6 +217,7 @@ nbdist/
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files
+./cSharp/Src/DataStructures/.idea/
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml

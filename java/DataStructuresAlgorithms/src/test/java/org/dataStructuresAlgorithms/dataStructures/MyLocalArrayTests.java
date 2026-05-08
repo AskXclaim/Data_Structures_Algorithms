@@ -2,6 +2,7 @@ package org.dataStructuresAlgorithms.dataStructures;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +24,7 @@ public class MyLocalArrayTests {
     public void insert_WhenCalledWithValidItem_ShouldAddSingleItemSuccessfully() {
         var array = new MyLocalArray<Integer>(Integer.class, 1);
         array.insert(1);
-        assertEquals(1, array.length());
+        assertEquals(1, array.itemLength());
     }
 
     @Test
@@ -31,6 +32,20 @@ public class MyLocalArrayTests {
         var array = new MyLocalArray<Integer>(Integer.class, 1);
         array.insert(1);
         array.insert(2);
-        assertEquals(2, array.length());
+        assertEquals(2, array.itemLength());
+    }
+
+    @Test
+    public void insert_WhenCalledWithNull_ShouldNotBeAddedSuccessfully() {
+        var array = new MyLocalArray<Integer>(Integer.class, 1);
+        array.insert(null);
+        assertEquals(0, array.itemLength());
+    }
+
+    @ParameterizedTest
+    @CsvSource({"1,1", "2,2", "3,3", "1,0", "2,1"})
+    public void removeAt_WhenCalledWithInvalidIndex_ShouldThrowException(int size, int index) {
+        var array = new MyLocalArray<>(Integer.class, size);
+        assertThrows(IndexOutOfBoundsException.class, () -> array.removeAt(index));
     }
 }

@@ -168,7 +168,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
      * @return the current size of the collection.
      */
     @Override
-    public int length() {
+    public int itemLength() {
         return _currentPosition;
     }
 

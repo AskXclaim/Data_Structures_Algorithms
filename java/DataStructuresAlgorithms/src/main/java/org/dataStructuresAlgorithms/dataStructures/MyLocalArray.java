@@ -17,7 +17,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
             throw new IllegalArgumentException("size has to be greater than zero");
 
         this._size = size;
-        _items = (T[]) Array.newInstance(_clazz, _size);
+        _items = getNewInstance(_size);
     }
 
     /**
@@ -27,7 +27,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
     public void insert(T value) {
         if (_currentPosition == _size) {
             _size *= 2;
-            var items = (T[]) Array.newInstance(_clazz, _size);
+            var items = getNewInstance(_size);
             for (var i = 0; i < _currentPosition; i++) {
                 items[i] = _items[i];
             }
@@ -45,7 +45,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
         if (index < 0 || index >= _currentPosition)
             throw new IndexOutOfBoundsException(index);
 
-        var items = (T[]) Array.newInstance(_clazz, _currentPosition);
+        var items = getNewInstance(_currentPosition);
         for (int i = 0, j = 0; i < _currentPosition; i++) {
             if (i == index)
                 continue;
@@ -93,10 +93,10 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
     @Override
     public T[] intersect(T[] array) {
         if (array.length == 0)
-            return (T[]) Array.newInstance(_clazz, 0);
+            return getNewInstance(0);
 
         var size = Math.max(array.length, _items.length);
-        var intersectedItems = (T[]) Array.newInstance(_clazz, size);
+        var intersectedItems = getNewInstance(size);
         var i = 0;
         for (int j = 0; j < _currentPosition; j++) {
             for (T t : array) {
@@ -106,13 +106,96 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
                 }
             }
         }
-        var result = (T[]) Array.newInstance(_clazz, i);
+        var result = getNewInstance(i);
         for (int j = 0; j < i; j++) {
             result[j] = intersectedItems[j];
         }
         return result;
     }
 
+    /**
+     * Reverses the order of the items in the class
+     */
+    @Override
+    public void reverse() {
+        if (_currentPosition == 0 || _currentPosition == 1)
+            return;
+
+        var items = getNewInstance(_currentPosition);
+        for (int i = 0, j = _currentPosition - 1; j >= 0; i++, j--) {
+            items[i] = _items[j];
+        }
+        _items = items;
+    }
+
+    /**
+     * @return an array of type T
+     */
+    @Override
+    public T[] reverseTo() {
+        var items = getNewInstance(_currentPosition);
+        for (int i = 0, j = _currentPosition - 1; i < _currentPosition; i++) {
+            items[i] = _items[j++];
+        }
+        return items;
+
+    }
+
+    /**
+     * @param value is the item to be inserted at a given index
+     * @param index is what point to add the value being passed
+     */
+    @Override
+    public void insertAt(T value, int index) {
+        if (value == null || (value.getClass() == String.class && ((String) value).isBlank()))
+            throw new IllegalArgumentException("Value cannot be null, blank or only whitespace(s)");
+
+        if (index < 0 || index >= _currentPosition)
+            throw new IndexOutOfBoundsException(index);
+
+        var items = getNewInstance(_currentPosition);
+        for (int i = 0, j = 0; i < _currentPosition; i++) {
+            if (i == index) {
+                items[j++] = value;
+            }
+            items[j++] = _items[i];
+        }
+        _items = items;
+
+    }
+
+    /**
+     * @return the current size of the collection.
+     */
+    @Override
+    public int length() {
+        return _currentPosition;
+    }
+
+    /**
+     * Print items in the class
+     * returns items in the class as string
+     */
+    @Override
+    public String printLn() {
+        if (_currentPosition == 0) return "";
+
+        StringBuilder toDisplay = new StringBuilder("[");
+        for (var i = 0; i < _currentPosition; i++) {
+            toDisplay.append(_items[0].toString()).append(i != _currentPosition - 1 ? "," : "]");
+        }
+        System.out.print(toDisplay);
+        return toDisplay.toString();
+    }
+
+    @Override
+    public String toString() {
+        return printLn();
+    }
+
+    private T[] getNewInstance(int size) {
+        return (T[]) Array.newInstance(_clazz, size);
+    }
 
     private boolean contains(T[] array, int endPoint, T value) {
         if (array.length == 0)
@@ -124,51 +207,4 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
         }
         return false;
     }
-}
-
-/**
- *
- */
-@Override
-public void reverse() {
-
-}
-
-/**
- * @return
- */
-@Override
-public T[] reverseTo() {
-    return null;
-}
-
-/**
- * @param value
- * @param index
- */
-@Override
-public void insertAt(T value, int index) {
-
-}
-
-/**
- * Print items in the class
- * returns items in the class as string
- */
-@Override
-public String printLn() {
-    if (_currentPosition == 0) return "";
-
-    StringBuilder toDisplay = new StringBuilder("[");
-    for (var i = 0; i < _currentPosition; i++) {
-        toDisplay.append(_items[0].toString()).append(i != _currentPosition - 1 ? "," : "]");
-    }
-    System.out.print(toDisplay);
-    return toDisplay.toString();
-}
-
-@Override
-public String toString() {
-    return printLn();
-}
 }

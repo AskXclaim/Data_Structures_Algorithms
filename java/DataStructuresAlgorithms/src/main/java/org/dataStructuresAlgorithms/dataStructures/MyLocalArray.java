@@ -75,8 +75,9 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
      */
     @Override
     public T max() {
-        if (_currentPosition == 0)
+        if (_currentPosition == 0) {
             return null;
+        }
 
         var maxItem = _items[0];
         for (var i = 1; i < _currentPosition; i++) {
@@ -100,7 +101,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
         var i = 0;
         for (int j = 0; j < _currentPosition; j++) {
             for (T t : array) {
-                if (t.equals(_items[j]) && !contains(intersectedItems, i, _items[i])) {
+                if (t.equals(_items[j]) && !contains(intersectedItems, i, _items[j])) {
                     intersectedItems[i++] = _items[j];
                     break;
                 }
@@ -198,9 +199,6 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
     }
 
     private boolean contains(T[] array, int endPoint, T value) {
-        if (array.length == 0)
-            return false;
-
         for (int i = 0; i < endPoint; i++) {
             if (array[i].equals(value))
                 return true;

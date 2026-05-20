@@ -12,6 +12,7 @@ public interface CustomArray<T extends Comparable<T>> {
     T[] reverseTo();
     void insertAt(T value, int index);
     int itemLength();
+    T[] items();
 
     String printLn();
 

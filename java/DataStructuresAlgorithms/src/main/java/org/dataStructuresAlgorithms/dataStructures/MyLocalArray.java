@@ -1,6 +1,8 @@
 package org.dataStructuresAlgorithms.dataStructures;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Objects;
 
 import org.dataStructuresAlgorithms.dataStructures.interfaces.CustomArray;
 
@@ -122,11 +124,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
         if (_currentPosition == 0 || _currentPosition == 1)
             return;
 
-        var items = getNewInstance(_currentPosition);
-        for (int i = 0, j = _currentPosition - 1; j >= 0; i++, j--) {
-            items[i] = _items[j];
-        }
-        _items = items;
+        _items = reverseTo();
     }
 
     /**
@@ -135,11 +133,10 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
     @Override
     public T[] reverseTo() {
         var items = getNewInstance(_currentPosition);
-        for (int i = 0, j = _currentPosition - 1; i < _currentPosition; i++) {
-            items[i] = _items[j++];
+        for (int i = 0, j = _currentPosition - 1; j >= 0; i++, j--) {
+            items[i] = _items[j];
         }
         return items;
-
     }
 
     /**
@@ -148,13 +145,13 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
      */
     @Override
     public void insertAt(T value, int index) {
-        if (value == null || (value.getClass() == String.class && ((String) value).isBlank()))
+        if (value == null || value.getClass() == String.class && ((String) value).isBlank())
             throw new IllegalArgumentException("Value cannot be null, blank or only whitespace(s)");
 
         if (index < 0 || index >= _currentPosition)
             throw new IndexOutOfBoundsException(index);
 
-        var items = getNewInstance(_currentPosition);
+        var items = getNewInstance(_currentPosition+1);
         for (int i = 0, j = 0; i < _currentPosition; i++) {
             if (i == index) {
                 items[j++] = value;
@@ -162,6 +159,7 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
             items[j++] = _items[i];
         }
         _items = items;
+        _currentPosition++;
 
     }
 
@@ -171,6 +169,16 @@ public class MyLocalArray<T extends Comparable<T>> implements CustomArray<T> {
     @Override
     public int itemLength() {
         return _currentPosition;
+    }
+
+    /**
+     * @return an array of type T of the items currently stored
+     */
+    @Override
+    public T[] items() {
+        return Arrays.stream(_items)
+                .filter(Objects::nonNull)
+                .toArray(size -> (T[]) Array.newInstance(_items.getClass().getComponentType(), size));
     }
 
     /**
